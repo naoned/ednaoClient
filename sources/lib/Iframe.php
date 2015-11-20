@@ -30,7 +30,7 @@ class Iframe
               <p>Votre navigateur ne supporte pas l’élément iframe, l’aide ne peut donc pas être affichée</p>
             </iframe>',
             $url,
-            urlencode($encodedToken),
+            $encodedToken,
             urlencode($version),
             urlencode($page)
         );
