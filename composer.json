@@ -1,0 +1,22 @@
+{
+    "name": "naoned/ednaoClient",
+    "type": "Librairie",
+    "description": "A frontend helper to reach Naoned help and manual from Naoned applications",
+    "homepage": "http://www.mnesys-portail.fr",
+    "license": "©copyright 2015",
+    "config": {
+        "vendor-dir":    "vendor/",
+        "github-oauth" : {
+            "github.com" : "b381e23e307293743c04fddfb3f737a9e83dac32"
+        }
+    },
+    "authors": [
+        {
+            "name": "Vincent Beauvivre aka Vibby",
+            "email": "vbeauvivre@naoned.fr"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+    }
+}
