@@ -1,6 +1,6 @@
 {
     "name": "naoned/ednaoClient",
-    "type": "Librairie",
+    "type": "Library",
     "description": "A frontend helper to reach Naoned help and manual from Naoned applications",
     "homepage": "http://www.mnesys-portail.fr",
     "license": "©copyright 2015",
@@ -8,9 +8,27 @@
         {
             "name": "Vincent Beauvivre aka Vibby",
             "email": "vbeauvivre@naoned.fr"
+        },
+        {
+            "name": "Nicolas Marniesse",
+            "email": "nmarniesse@naoned.fr"
         }
     ],
     "require": {
-        "php": ">=5.4"
+        "php": ">=5.3",
+        "phpseclib/phpseclib": "~2.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Naoned\\EdnaoClient\\": "sources/lib"
+        }
+    }
+    "autoload-dev": {
+        "psr-4": {
+            "Naoned\\EdnaoClient\\Test\\": "sources/tests"
+        }
     }
 }
