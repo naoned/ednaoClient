@@ -25,7 +25,7 @@
         "psr-4": {
             "Naoned\\EdnaoClient\\": "sources/lib"
         }
-    }
+    },
     "autoload-dev": {
         "psr-4": {
             "Naoned\\EdnaoClient\\Test\\": "sources/tests"
