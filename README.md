@@ -20,7 +20,7 @@ $encodedToken is a string that represents a token
 
 # Decode a token
 
-    $str = '...'; // A token encoded
+    $str = '...'; // An encoded token
     $ednaoCrypt = new EdnaoCryptography();
     $tokenManager = new TokenManager($ednaoCrypt);
     $token = $tokenManager->getTokenDecrypt($str);

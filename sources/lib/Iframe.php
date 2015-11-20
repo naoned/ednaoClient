@@ -15,6 +15,7 @@ class Iframe
     {
         $token = new Token($socle, $product, $rights);
         $ednaoCrypt = new EdnaoCryptography();
+        $ednaoCrypt->setPublicKey(file_get_contents(__DIR__ . '/../../var/auth/public.pem'));
         $tokenManager = new TokenManager($ednaoCrypt);
         $encodedToken = $tokenManager->getTokenCrypt($token);
 
