@@ -4,6 +4,7 @@ namespace Naoned\EdnaoClient;
 
 use Naoned\EdnaoClient\Security\Cryptography\EdnaoCryptography;
 use Naoned\EdnaoClient\Manager\TokenManager;
+use Naoned\EdnaoClient\Model\Token;
 
 /**
 *     Create the iFrame to access help
