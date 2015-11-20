@@ -21,7 +21,7 @@ class Iframe
         return sprintf(
             '
             <iframe
-                src="%s"
+                src="%s/naoned/%s/%s/%s"
                 frameborder="1" marginheight="0" marginwidth="0"
                 width="400" height="600"
                 id="ednao"
@@ -29,9 +29,9 @@ class Iframe
               <p>Votre navigateur ne supporte pas l’élément iframe, l’aide ne peut donc pas être affichée</p>
             </iframe>',
             $url,
-            $encodedToken,
-            $version,
-            $page
+            urlencode($encodedToken),
+            urlencode($version),
+            urlencode($page)
         );
     }
 }
