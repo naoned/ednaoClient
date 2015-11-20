@@ -26,3 +26,16 @@ $encodedToken is a string that represents a token
     $token = $tokenManager->getTokenDecrypt($str);
 
 $token is an entity of Token class
+
+# Add the iframe for a specific content
+    <?php include('[…]/vendor/autoload.php') ?>
+    <?php
+        echo Naoned\EdnaoClient\Iframe::render(
+            $url,
+            $socle,
+            $version,
+            $product,
+            array($group => $accesslevel),
+            $page
+        );
+    ?>
