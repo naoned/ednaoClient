@@ -21,12 +21,12 @@ class TokenManager
 
     public function getTokenCrypt(Token $token)
     {
-        return $this->ednaoCrypt->crypt($token->serialize());
+        return urlencode($this->ednaoCrypt->crypt($token->serialize()));
     }
 
     public function getTokenDecrypt($str)
     {
-        return Token::unserialize($this->ednaoCrypt->decrypt($str));
+        return Token::unserialize($this->ednaoCrypt->decrypt(urldecode($str)));
     }
 
 }
