@@ -1,3 +1,4 @@
+<?php require_once '../../../../vendor/autoload.php' ?>
 <?php
     $socle = isset($_GET['socle']) ? $_GET['socle'] : 'inao';
     $product = isset($_GET['product']) ? $_GET['product'] : 'archives';
@@ -9,6 +10,13 @@
 ?>
 
 <html>
+    <head>
+        <style>
+        <?php
+            echo Naoned\EdnaoClient\Renderer::style();
+        ?>
+        </style>
+    </head>
     <body>
         <h1>
             This is a dummy Naoned application
@@ -72,7 +80,6 @@
             <button type="submit">Appliquer au chargement complet</button>
         </form>
         <br />
-        <?php require_once '../../../../vendor/autoload.php' ?>
         <?php
             echo Naoned\EdnaoClient\Renderer::iframe(
                 $url,

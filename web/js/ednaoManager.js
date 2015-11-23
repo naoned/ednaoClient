@@ -2,7 +2,7 @@
  Copyright 2015 Naoned
  */
 
-(function(window) {
+ (function(window) {
 
   if (!!window.ednaoManager) {
     return window.ednaoManager;
@@ -14,9 +14,14 @@
 
     var iframe;
     var baseUrl;
+    var decX;
+    var decY;
+    var div;
 
     function _init() {
-      iframe = document.getElementById('ednao');
+      _addListeners();
+      div = document.getElementById('ednao');
+      iframe = document.getElementById('ednao-iframe');
       baseUrl = iframe.getAttribute('data-base-url');
       if (baseUrl === undefined) {
         console.log('Error : Help based url is not defined');
@@ -34,6 +39,28 @@
       iframe.src = baseUrl+'/'+contextPath+'/'+context;
     }
 
+    function _addListeners(){
+      document.getElementById('ednao-handle').addEventListener('mousedown', _mouseDown, false);
+      window.addEventListener('mouseup', _mouseUp, false);
+    }
+
+    function _mouseUp()
+    {
+      window.removeEventListener('mousemove', _divMove, true);
+    }
+
+    function _mouseDown(e){
+      decY = e.clientY - div.offsetTop;
+      decX = e.clientX - div.offsetLeft;
+      window.addEventListener('mousemove', _divMove, true);
+    }
+
+    function _divMove(e){
+      div.style.position = 'absolute';
+      div.style.top = (e.clientY - decY) + 'px';
+      div.style.left = (e.clientX - decX) + 'px';
+    }
+
     // Expose methods
     var exports = {};
     exports.goToContext = goToContext;
@@ -46,3 +73,5 @@
   window.ednaoManager = ednaoManager;
   return ednaoManager;
 })(this);
+
+
