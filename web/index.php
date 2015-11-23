@@ -62,18 +62,19 @@
             </div>
             <div>
                 <label>Page</label>
-                <input type="text" name="page" value="<?php echo $page ?>" />
+                <input id="page" type="text" name="page" value="<?php echo $page ?>" />
+                <button id="apply-page" type="button" onclick="ednaoManager.goToContext(document.getElementById('page').getAttribute('value'))">Appliquer en ajax</button>
             </div>
             <div>
                 <label>URL de l’aide</label>
                 <input type="text" name="url" value="<?php echo $url ?>" />
             </div>
-            <input type="submit">
+            <button type="submit">Appliquer au chargement complet</button>
         </form>
         <br />
         <?php require_once '../../../../vendor/autoload.php' ?>
         <?php
-            echo Naoned\EdnaoClient\Iframe::render(
+            echo Naoned\EdnaoClient\Renderer::iframe(
                 $url,
                 $socle,
                 $version,
@@ -82,5 +83,6 @@
                 $page
             );
         ?>
+        <script type="text/javascript" src="js/ednaoManager.js"></script>
     </body>
 </html>

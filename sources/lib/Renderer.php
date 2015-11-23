@@ -9,9 +9,11 @@ use Naoned\EdnaoClient\Model\Token;
 /**
 *     Create the iFrame to access help
 */
-class Iframe
+class Renderer
 {
-    public function render($baseUrl, $socle, $version, $product, array $rights, $page)
+    const CONTEXT_PATH = 'context2';
+
+    public function iframe($baseUrl, $socle, $version, $product, array $rights, $page)
     {
         $token = new Token($socle, $product, $rights);
         $ednaoCrypt = new EdnaoCryptography();
@@ -35,10 +37,14 @@ class Iframe
                 frameborder="1" marginheight="0" marginwidth="0"
                 width="400" height="600"
                 id="ednao"
+                data-base-url="%2$s"
+                data-context-path="%3$s"
             >
               <p>Votre navigateur ne supporte pas l’élément iframe, l’aide ne peut donc pas être affichée</p>
             </iframe>',
-            $url
+            $url,
+            $baseUrl,
+            self::CONTEXT_PATH
         );
     }
 }

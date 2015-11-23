@@ -27,7 +27,8 @@ $encodedToken is a string that represents a token
 
 $token is an entity of Token class
 
-# For test and review purpose, you can add a vhost to the web/ folder
+# Dummy test application
+For test and review purpose, you can add a vhost to the web/ folder
     <VirtualHost *:80>
         ServerAdmin vbeauvivre@naoned.fr
         ServerName client.insitu.help.mnesys.fr
@@ -47,3 +48,15 @@ $token is an entity of Token class
             $page
         );
     ?>
+
+# js lib
+It helps you to interact with help iframe
+
+Add to your markup :
+    <script type="text/javascript" src="js/ednaoManager.js"></script>
+
+Use it like that :
+    <script type="text/javascript">
+        ednaoManager.goToContext('classement');
+    </script>
+
