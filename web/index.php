@@ -71,7 +71,7 @@
             <input type="submit">
         </form>
         <br />
-        <?php require_once '../vendor/autoload.php' ?>
+        <?php require_once '../../../../vendor/autoload.php' ?>
         <?php
             echo Naoned\EdnaoClient\Iframe::render(
                 $url,

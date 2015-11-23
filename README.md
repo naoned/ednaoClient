@@ -27,11 +27,11 @@ $encodedToken is a string that represents a token
 
 $token is an entity of Token class
 
-# For test and review purpose, yu can add a vhost to the web/ folder
+# For test and review purpose, you can add a vhost to the web/ folder
     <VirtualHost *:80>
         ServerAdmin vbeauvivre@naoned.fr
         ServerName client.insitu.help.mnesys.fr
-        DocumentRoot /PATH/TO/ednaoClient/web
+        DocumentRoot /PATH/TO/vendor/naoned/ednaoClient/web
     </VirtualHost>
 
 
