@@ -17,13 +17,13 @@ class Token
     /**
      * @var array
      */
-    private $right;
+    private $rights;
 
-    public function __construct($socle, $product, array $right)
+    public function __construct($socle, $product, array $rights)
     {
         $this->socle = $socle;
         $this->product = $product;
-        $this->right = $right;
+        $this->rights = $rights;
     }
 
     /**
@@ -65,18 +65,18 @@ class Token
     /**
      * @return array
      */
-    public function getRight()
+    public function getRights()
     {
-        return $this->right;
+        return $this->rights;
     }
 
     /**
-     * @param array $right
+     * @param array $rights
      * @return Token
      */
-    public function setRight($right)
+    public function setRights($rights)
     {
-        $this->right = $right;
+        $this->rights = $rights;
         return $this;
     }
 
@@ -92,7 +92,7 @@ class Token
         $s = [
             'socle'   => $this->socle,
             'product' => $this->product,
-            'right'   => $this->right
+            'rights'  => $this->rights
         ];
         return serialize($s);
     }
@@ -106,10 +106,9 @@ class Token
     {
         $t = unserialize($str);
 
-        if (!isset($t['socle']) || !isset($t['product']) || !isset($t['right'])) {
-            throw new \Exception('Unserialized string doe\'nt refer to a valid token');
+        if (!isset($t['socle']) || !isset($t['product']) || !isset($t['rights'])) {
+            throw new \Exception('Unserialized string does not refer to a valid token');
         }
-        return new Token($t['socle'], $t['product'], $t['right']);
+        return new Token($t['socle'], $t['product'], $t['rights']);
     }
-
 }
