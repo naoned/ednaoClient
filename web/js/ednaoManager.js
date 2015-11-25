@@ -14,18 +14,30 @@
 
     var iframe;
     var baseUrl;
-    var decX;
-    var decY;
-    var div;
+    var currentPos = {'x' : 0, 'y' : 0};
 
-    function _init() {
-      _addListeners();
-      div = document.getElementById('ednao');
-      iframe = document.getElementById('ednao-iframe');
+    function _init(handler) {
+      iframe = document.getElementById('ednao');
       baseUrl = iframe.getAttribute('data-base-url');
-      if (baseUrl === undefined) {
+      if (baseUrl === undefined)   {
         console.log('Error : Help based url is not defined');
       }
+    }
+
+    function _setPositionToIframe() {
+      iframe.contentWindow.postMessage({
+        'type': 'setCurrentPos',
+        'curPos': _getOffset(iframe)
+      }, '*');
+    }
+
+    function show() {
+      iframe.style.display = 'block';
+      _setPositionToIframe();
+    }
+
+    function hide() {
+      iframe.style.display = 'none';
     }
 
     // Change page for help in
@@ -37,35 +49,53 @@
         console.log('Error : Help context path is not defined');
       }
       iframe.src = baseUrl+'/'+contextPath+'/'+context;
+      show();
     }
 
-    function _addListeners(){
-      document.getElementById('ednao-handle').addEventListener('mousedown', _mouseDown, false);
-      window.addEventListener('mouseup', _mouseUp, false);
+    function _iframeMouseUp(e){
+      iframe.style.width = '400px';
+      iframe.style.height = '600px';
+      iframe.style.left = e.data.curPos.x + 'px';
+      iframe.style.top = e.data.curPos.y + 'px';
     }
 
-    function _mouseUp()
-    {
-      window.removeEventListener('mousemove', _divMove, true);
+    function _iframeMouseDown(e){
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      iframe.style.left = 0;
+      iframe.style.top = 0;
     }
 
-    function _mouseDown(e){
-      decY = e.clientY - div.offsetTop;
-      decX = e.clientX - div.offsetLeft;
-      window.addEventListener('mousemove', _divMove, true);
+    window.onmessage = function(e){
+      if (e.data.type == 'moveIframeDown') {
+        _iframeMouseDown(e);
+      }
+      if (e.data.type == 'moveIframeUp') {
+        _iframeMouseUp(e);
+      }
+      if (e.data.type == 'checkIframeMode') {
+        _setPositionToIframe(e);
+      }
     }
 
-    function _divMove(e){
-      div.style.position = 'absolute';
-      div.style.top = (e.clientY - decY) + 'px';
-      div.style.left = (e.clientX - decX) + 'px';
+    function _getOffset(el) {
+      var _x = 0;
+      var _y = 0;
+      while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+        _x += el.offsetLeft - el.scrollLeft;
+        _y += el.offsetTop - el.scrollTop;
+        el = el.offsetParent;
+      }
+      return { x: _x, y: _y };
     }
+
+    _init();
 
     // Expose methods
     var exports = {};
     exports.goToContext = goToContext;
-
-    _init();
+    exports.show = show;
+    exports.hide = hide;
 
     return exports;
   })();

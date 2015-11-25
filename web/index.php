@@ -71,13 +71,15 @@
             <div>
                 <label>Page</label>
                 <input id="page" type="text" name="page" value="<?php echo $page ?>" />
-                <button id="apply-page" type="button" onclick="ednaoManager.goToContext(document.getElementById('page').getAttribute('value'))">Appliquer en ajax</button>
+                <button id="apply-page" type="button" onclick="window.ednaoManager.goToContext(document.getElementById('page').getAttribute('value'))">Appliquer en ajax</button>
             </div>
             <div>
                 <label>URL de l’aide</label>
                 <input type="text" name="url" value="<?php echo $url ?>" />
             </div>
-            <button type="submit">Appliquer au chargement complet</button>
+            <button type="submit">Appliquer au chargement complet</button><br /><br />
+            <button id="apply-page" type="button" onclick="window.ednaoManager.show()">Afficher l’aide</button>
+            <button id="apply-page" type="button" onclick="window.ednaoManager.hide()">Masquer l’aide</button>
         </form>
         <br />
         <?php

@@ -31,19 +31,18 @@ class Renderer
 
         return sprintf(
             '
-            <div draggable="true" id="ednao">
-                <div id="ednao-handle">Aide Naoned</div>
                 <iframe
                     src="%1$s"
                     frameborder="1" marginheight="0" marginwidth="0"
                     width="400" height="600"
-                    id="ednao-iframe"
+                    id="ednao"
                     data-base-url="%2$s"
                     data-context-path="%3$s"
                 >
-                  <p>Votre navigateur ne supporte pas l’élément iframe, l’aide ne peut donc pas être affichée</p>
+                  <p>Votre navigateur ne supporte pas l’élément iframe,
+                  l’aide ne peut donc pas être affichée</p>
                 </iframe>
-            </div>',
+            ',
             $url,
             $baseUrl,
             self::CONTEXT_PATH
@@ -54,22 +53,15 @@ class Renderer
     {
         return '
 #ednao {
-  position:absolute;
+  width:400px;
+  height:600px;
+  position:fixed;
   top: 100px;
-  left: 600px;
+  left: 300px;
   border:3px solid #086096;
-  box-shadow: 0 0 32px 8px rgba(0, 0, 0, 0.5);
-  background: #E5E5E5;
-  border-radius: 8px 8px 0 0;
-}
-#ednao-handle {
-  background: #086096;
-  color: #FFF;
-  padding: .2em;
-  cursor: move;
-}
-#ednao-iframe {
+  box-shadow: 0 3px 8px 4px rgba(0, 0, 0, 0.4);
   border: 0;
+  display: none;
 }';
 
     }
