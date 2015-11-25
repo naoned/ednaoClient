@@ -39,7 +39,7 @@ For test and review purpose, you can add a vhost to the web/ folder
 # Add the iframe for a specific content
     <?php include('[…]/vendor/autoload.php') ?>
     <?php
-        echo Naoned\EdnaoClient\Iframe::render(
+        echo Naoned\EdnaoClient\Renderer::iframe(
             $url,
             $socle,
             $version,
