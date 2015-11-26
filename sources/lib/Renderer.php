@@ -11,7 +11,7 @@ use Naoned\EdnaoClient\Model\Token;
 */
 class Renderer
 {
-    const CONTEXT_PATH = 'contextual-list?c=';
+    const CONTEXT_PATH = '/contextual-list?c=';
 
     public static function iframe($baseUrl, $socle, $version, $product, array $rights, $page)
     {
@@ -20,10 +20,8 @@ class Renderer
         $ednaoCrypt->setPublicKey(file_get_contents(__DIR__ . '/../../var/auth/public.pem'));
         $tokenManager = new TokenManager($ednaoCrypt);
         $encodedToken = $tokenManager->getTokenCrypt($token);
-        //
-        $url = sprintf(
-            '%s/naoned/%s/%s/%s',
-            $baseUrl,
+        $loginUrl = sprintf(
+            '/naoned/%s/%s/%s',
             $encodedToken,
             urlencode($version),
             urlencode($page)
@@ -31,18 +29,19 @@ class Renderer
 
         return sprintf(
             '<iframe
-            src="%1$s"
+            src=""
             frameborder="1" marginheight="0" marginwidth="0"
             width="400" height="600"
             id="ednao"
-            data-base-url="%2$s"
-            data-context-path="%3$s"
-            style="%4$s"
+            data-login-path="%s"
+            data-base-url="%s"
+            data-context-path="%s"
+            style="%s"
             >
             <p>Votre navigateur ne supporte pas l’élément iframe,
               l’aide ne peut donc pas être affichée</p>
             </iframe>',
-            $url,
+            $loginUrl,
             $baseUrl,
             self::CONTEXT_PATH,
             self::style()
@@ -60,6 +59,7 @@ class Renderer
         border:3px solid #086096;
         box-shadow: 0 3px 8px 4px rgba(0, 0, 0, 0.4);
         border: 0;
+        display: none;
         ';
 
     }
