@@ -61,13 +61,18 @@
         }
         url = baseUrl + loginPath;
       }
-      iframe.src = url;
+      if (url != iframe.src) {
+        iframe.src = url;
+      }
       iframe.style.display = 'block';
       _sendPositionToIframe();
     }
 
     function hide() {
-      _setCookie('ednao_visible', false);
+      iframe.contentWindow.postMessage({
+        'type': 'resetScroll',
+      }, '*');
+      _unsetCookie('ednao_visible');
       iframe.style.display = 'none';
     }
 
@@ -103,6 +108,10 @@
         _saveUrl(e.data.url);
         _sendPositionToIframe();
       }
+    }
+
+    function _unsetCookie(cname, exMin) {
+      _setCookie(cname, '', exMin)
     }
 
     function _setCookie(cname, cvalue, exMin) {
