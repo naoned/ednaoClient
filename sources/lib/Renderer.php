@@ -48,6 +48,11 @@ class Renderer
         );
     }
 
+    public static function js()
+    {
+        return file_get_contents(__DIR__ . '/../../web/js/ednaoManager.js');
+    }
+
     public static function style()
     {
         return '
