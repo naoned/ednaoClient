@@ -60,7 +60,7 @@
       if (!url) {
         url = _getCookie('ednao_url');
       }
-      if (!url) {
+      if (!url || url === 'undefined') {
         var loginPath = iframe.getAttribute('data-login-path');
         if (loginPath === undefined)   {
           _error('Help login path is not defined');
