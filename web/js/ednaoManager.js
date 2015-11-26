@@ -36,16 +36,14 @@
         _error('Help context path is not defined');
       }
 
-      if (_getCookie('ednao_x')) {
-        iframe.style.left = _getCookie('ednao_x') + 'px';
-      }
-      if (_getCookie('ednao_y')) {
-        iframe.style.top = _getCookie('ednao_y') + 'px';
-      }
+      var x = _getCookie('ednao_x');
+      if (x) { iframe.style.left = x + 'px'; }
+      var y = _getCookie('ednao_y');
+      if (y) { iframe.style.top = y + 'px'; }
+      isInit = true;
       if (_getCookie('ednao_visible')) {
         show();
       }
-      isInit = true;
       window.addEventListener('message', _onmessage, true);
     }
 
