@@ -22,6 +22,7 @@
       if (baseUrl === undefined)   {
         console.log('Error : Help based url is not defined');
       }
+      window.addEventListener('message', _onmessage, true);
     }
 
     function _setPositionToIframe() {
@@ -48,7 +49,7 @@
       if (contextPath === undefined) {
         console.log('Error : Help context path is not defined');
       }
-      iframe.src = baseUrl+'/'+contextPath+'/'+context;
+      iframe.src = baseUrl+'/'+contextPath+context;
       show();
     }
 
@@ -66,7 +67,7 @@
       iframe.style.top = 0;
     }
 
-    window.onmessage = function(e){
+    function _onmessage(e){
       if (e.data.type == 'moveIframeDown') {
         _iframeMouseDown(e);
       }
