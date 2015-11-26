@@ -65,6 +65,7 @@ class Renderer
         box-shadow: 0 3px 8px 4px rgba(0, 0, 0, 0.4);
         border: 0;
         display: none;
+        z-index: 40000;
         ';
 
     }
