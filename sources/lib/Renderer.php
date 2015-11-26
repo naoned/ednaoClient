@@ -11,7 +11,7 @@ use Naoned\EdnaoClient\Model\Token;
 */
 class Renderer
 {
-    const CONTEXT_PATH = 'context2';
+    const CONTEXT_PATH = 'contextual-list?c=';
 
     public static function iframe($baseUrl, $socle, $version, $product, array $rights, $page)
     {
@@ -30,39 +30,45 @@ class Renderer
         );
 
         return sprintf(
-            '
-                <iframe
-                    src="%1$s"
-                    frameborder="1" marginheight="0" marginwidth="0"
-                    width="400" height="600"
-                    id="ednao"
-                    data-base-url="%2$s"
-                    data-context-path="%3$s"
-                >
-                  <p>Votre navigateur ne supporte pas l’élément iframe,
-                  l’aide ne peut donc pas être affichée</p>
-                </iframe>
-            ',
+            '<iframe
+            src="%1$s"
+            frameborder="1" marginheight="0" marginwidth="0"
+            width="400" height="600"
+            id="ednao"
+            data-base-url="%2$s"
+            data-context-path="%3$s"
+            style="%4$s"
+            >
+            <p>Votre navigateur ne supporte pas l’élément iframe,
+              l’aide ne peut donc pas être affichée</p>
+            </iframe>',
             $url,
             $baseUrl,
-            self::CONTEXT_PATH
+            self::CONTEXT_PATH,
+            self::style()
         );
     }
 
     public static function style()
     {
         return '
-#ednao {
-  width:400px;
-  height:600px;
-  position:fixed;
-  top: 100px;
-  left: 300px;
-  border:3px solid #086096;
-  box-shadow: 0 3px 8px 4px rgba(0, 0, 0, 0.4);
-  border: 0;
-  display: none;
-}';
+        width:400px;
+        height:600px;
+        position:fixed;
+        top: 100px;
+        left: 300px;
+        border:3px solid #086096;
+        box-shadow: 0 3px 8px 4px rgba(0, 0, 0, 0.4);
+        border: 0;
+        ';
 
+    }
+
+    public static function styleDefinition()
+    {
+        return sprintf(
+            '#ednao { %s }',
+            self::style()
+        );
     }
 }

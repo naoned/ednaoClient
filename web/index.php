@@ -2,21 +2,14 @@
 <?php
     $socle = isset($_GET['socle']) ? $_GET['socle'] : 'inao';
     $product = isset($_GET['product']) ? $_GET['product'] : 'archives';
-    $group = isset($_GET['group']) ? $_GET['group'] : 'group_archivistes';
-    $accesslevel = isset($_GET['accesslevel']) ? $_GET['accesslevel'] : 'admin';
+    $group = isset($_GET['group']) ? $_GET['group'] : 'group_versements';
+    $accesslevel = isset($_GET['accesslevel']) ? $_GET['accesslevel'] : 'writer';
     $version = isset($_GET['version']) ? $_GET['version'] : '3.12.1';
-    $page = isset($_GET['page']) ? $_GET['page'] : 'classement';
+    $page = isset($_GET['page']) ? $_GET['page'] : 'test';
     $url = isset($_GET['url']) ? urldecode($_GET['url']) : 'http://vbeauvivre.insitu.help.mnesys.fr';
 ?>
 
 <html>
-    <head>
-        <style>
-        <?php
-            echo Naoned\EdnaoClient\Renderer::style();
-        ?>
-        </style>
-    </head>
     <body>
         <h1>
             This is a dummy Naoned application
@@ -71,17 +64,97 @@
             <div>
                 <label>Page</label>
                 <input id="page" type="text" name="page" value="<?php echo $page ?>" />
-                <button id="apply-page" type="button" onclick="window.ednaoManager.goToContext(document.getElementById('page').getAttribute('value'))">Appliquer en ajax</button>
+                <button id="apply-page" type="button" onclick="ednaoManager.goToContext(document.getElementById('page').value)">Y aller !</button>
             </div>
             <div>
                 <label>URL de l’aide</label>
                 <input type="text" name="url" value="<?php echo $url ?>" />
             </div>
             <button type="submit">Appliquer au chargement complet</button><br /><br />
-            <button id="apply-page" type="button" onclick="window.ednaoManager.show()">Afficher l’aide</button>
-            <button id="apply-page" type="button" onclick="window.ednaoManager.hide()">Masquer l’aide</button>
+            <button id="apply-page" type="button" onclick="ednaoManager.show()">Afficher l’aide</button>
+            <button id="apply-page" type="button" onclick="ednaoManager.hide()">Masquer l’aide</button>
         </form>
-        <br />
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
+        <p>
+            Some additionnal content to enable scroll test
+        </p>
         <?php
             echo Naoned\EdnaoClient\Renderer::iframe(
                 $url,
