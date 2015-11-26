@@ -14,14 +14,22 @@
 
     var iframe;
     var baseUrl;
+    var isInit = false;
     var currentPos = {'x' : 0, 'y' : 0};
 
     function _init(handler) {
+      if (isInit) {
+        return;
+      }
       iframe = document.getElementById('ednao');
+      if (iframe === undefined || iframe === null) {
+        return;
+      }
       baseUrl = iframe.getAttribute('data-base-url');
       if (baseUrl === undefined)   {
         console.log('Error : Help based url is not defined');
       }
+      isInit = true;
       window.addEventListener('message', _onmessage, true);
     }
 
@@ -33,6 +41,7 @@
     }
 
     function show() {
+      _init();
       iframe.style.display = 'block';
       _setPositionToIframe();
     }
@@ -76,6 +85,9 @@
       }
       if (e.data.type == 'checkIframeMode') {
         _setPositionToIframe(e);
+      }
+      if (e.data.type == 'closeIframe') {
+        hide();
       }
     }
 
