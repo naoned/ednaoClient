@@ -14,11 +14,18 @@
 
     var iframe;
     var baseUrl;
+    var isInit = false;
     var currentPos = {'x' : 0, 'y' : 0};
     var contextPath;
 
     function _init(handler) {
+      if (isInit) {
+        return;
+      }
       iframe = document.getElementById('ednao');
+      if (iframe === undefined || iframe === null) {
+        return;
+      }
       baseUrl = iframe.getAttribute('data-base-url');
       if (baseUrl === undefined)   {
         _error('Help based url is not defined');
@@ -38,6 +45,7 @@
       if (_getCookie('ednao_visible')) {
         show();
       }
+      isInit = true;
       window.addEventListener('message', _onmessage, true);
     }
 
@@ -49,6 +57,7 @@
     }
 
     function show(url) {
+      _init();
       _setCookie('ednao_visible', true);
       if (!url) {
         url = _getCookie('ednao_url');
@@ -107,6 +116,9 @@
       if (e.data.type == 'checkIframeMode') {
         _saveUrl(e.data.url);
         _sendPositionToIframe();
+      }
+      if (e.data.type == 'closeIframe') {
+        hide();
       }
     }
 
