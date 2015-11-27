@@ -57,6 +57,12 @@
     function show(url) {
       _init();
       _setCookie('ednao_visible', true);
+      _setIframeSrc(url)
+      iframe.style.display = 'block';
+      _sendPositionToIframe();
+    }
+
+    function _setIframeSrc(url) {
       if (!url) {
         url = _getCookie('ednao_url');
       }
@@ -68,11 +74,7 @@
         }
         url = baseUrl + loginPath;
       }
-      if (url != iframe.src) {
-        iframe.src = url;
-      }
-      iframe.style.display = 'block';
-      _sendPositionToIframe();
+      iframe.src = url;
     }
 
     function hide() {
@@ -86,6 +88,11 @@
     // Change page for help in
     function goToContext(context) {
       show(baseUrl+contextPath+context);
+    }
+
+    function reset() {
+      _unsetCookie('ednao_url');
+      _setIframeSrc();
     }
 
     function _iframeMouseUp(curPos){
@@ -171,6 +178,7 @@
     exports.goToContext = goToContext;
     exports.show = show;
     exports.hide = hide;
+    exports.reset = reset;
 
     return exports;
   })();

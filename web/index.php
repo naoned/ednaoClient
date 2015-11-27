@@ -70,7 +70,8 @@
                 <label>URL de l’aide</label>
                 <input type="text" name="url" value="<?php echo $url ?>" />
             </div>
-            <button type="submit">Appliquer au chargement complet</button><br /><br />
+            <button type="submit">Appliquer au chargement complet</button><br />
+            <button id="apply-page" type="button" onclick="ednaoManager.reset()">Réinitialiser (pour appliquer les droits)</button><br /><br />
             <button id="apply-page" type="button" onclick="ednaoManager.show()">Afficher l’aide</button>
             <button id="apply-page" type="button" onclick="ednaoManager.hide()">Masquer l’aide</button>
         </form>
