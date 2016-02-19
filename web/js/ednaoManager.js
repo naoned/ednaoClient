@@ -102,6 +102,15 @@
       iframe.style.top = curPos.y + 'px';
       _setCookie('ednao_x', curPos.x);
       _setCookie('ednao_y', curPos.y);
+
+      //  refocus when popup is out of screen
+      if(curPos.x < -200){
+        iframe.style.left = "-200" + 'px';
+      } else if(curPos.x > window.innerWidth - 200) {
+        iframe.style.left = window.innerWidth - 200  + 'px';
+      } else if(curPos.y > window.outerHeight - 300){
+        iframe.style.top = window.outerHeight - 300  + 'px';
+      }
     }
 
     function _iframeMouseDown(){
