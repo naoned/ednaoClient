@@ -30,14 +30,18 @@ For test and review purpose, you can add a vhost to the web/ folder
 It is needed and helps you to interact with help iframe
 
 Add to your markup :
+``
     <script type="text/javascript" src="js/ednaoManager.js"></script>
+``
 
 Use it like that :
+``
     <script type="text/javascript">
         ednaoManager.goToContext('classement');
         ednaoManager.show();
         ednaoManager.hide();
     </script>
+``
 
 # Create a simple token
 
