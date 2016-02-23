@@ -1,18 +1,21 @@
 
-This library is a part of ednao (inao help system) and cannot be used without it
+This library is a part of ednao (naoned help system) and cannot be used without it
 
-This library is the application side o the help (iframe)
+This library is the application side of the help (iframe)
 
 # Dummy test application
 For test and review purpose, you can add a vhost to the web/ folder
+```
     <VirtualHost *:80>
-        ServerAdmin vbeauvivre@naoned.fr
+        ServerAdmin si@naoned.fr
         ServerName test.insitu.help.mnesys.fr
         DocumentRoot /PATH/TO/vendor/naoned/ednaoClient/web
     </VirtualHost>
+```
 
 
 # Add the iframe for a specific content
+```
     <?php // If you do not have autoload in your app ?>
     <?php include('[…]/vendor/autoload.php') ?>
     <?php
@@ -25,14 +28,15 @@ For test and review purpose, you can add a vhost to the web/ folder
             $page
         );
     ?>
+```
 
 # js lib
 It is needed and helps you to interact with help iframe
 
 Add to your markup :
-``
+```
     <script type="text/javascript" src="js/ednaoManager.js"></script>
-``
+```
 
 Use it like that :
 ``
@@ -45,30 +49,38 @@ Use it like that :
 
 # Create a simple token
 
+```
     $token = new Token(string $socle, string $product, array $rights);
+```
 
 Useful methods are :
 
+```
     $token->getSocle(); // Get the socle
     $token->getProduct(); // Get the product
     $token->getRights(); // Get the rights (array)
     $token->serialize(); // Get the token serialized (not encoded)
+```
 
 # Encode a token
 
+```
     $token = new Token(string $socle, string $product, array $rights);
     $ednaoCrypt = new EdnaoCryptography();
     $tokenManager = new TokenManager($ednaoCrypt);
     $encodedToken = $tokenManager->getTokenCrypt($token);
+```
 
 $encodedToken is a string that represents a token
 
 # Decode a token
 
+```
     $str = '...'; // An encoded token
     $ednaoCrypt = new EdnaoCryptography();
     $tokenManager = new TokenManager($ednaoCrypt);
     $token = $tokenManager->getTokenDecrypt($str);
+```
 
-$token is an entity of Token class
+``$token`` is an entity of Token class
 
