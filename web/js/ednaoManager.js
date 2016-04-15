@@ -1,7 +1,7 @@
 /*
  Copyright 2015 Naoned
  */
-
+/* eslint-disable */
  (function(window) {
 
   if (!!window.ednaoManager) {
@@ -18,21 +18,21 @@
     var currentPos = {'x' : 0, 'y' : 0};
     var contextPath;
 
-    function _init(handler) {
+    function _init() {
       if (isInit) {
         return;
       }
       iframe = document.getElementById('ednao');
-      if (iframe === undefined || iframe === null) {
-        return;
-      }
-      baseUrl = iframe.getAttribute('data-base-url');
-      if (baseUrl === undefined)   {
-        _error('Help based url is not defined');
+      if (typeof iframe === 'undefined' || iframe === null) {
         return;
       }
       contextPath = iframe.getAttribute('data-context-path');
-      if (contextPath === undefined) {
+      baseUrl = iframe.getAttribute('data-base-url');
+      if (typeof baseUrl === 'undefined')   {
+        _error('Help based url is not defined');
+        return;
+      }
+      if (typeof contextPath === 'undefined') {
         _error('Help context path is not defined');
       }
 
@@ -58,8 +58,10 @@
       _init();
       _setCookie('ednao_visible', true);
       _setIframeSrc(url)
-      iframe.style.display = 'block';
-      _sendPositionToIframe();
+      iframe.addEventListener("load", function() {
+        _sendPositionToIframe();
+        iframe.style.display = 'block';
+      });
     }
 
     function _setIframeSrc(url) {
@@ -82,6 +84,7 @@
         'type': 'resetScroll',
       }, '*');
       _unsetCookie('ednao_visible');
+      _unsetCookie('ednao_url');
       iframe.style.display = 'none';
     }
 
@@ -173,14 +176,27 @@
     }
 
     function _saveUrl(url) {
-      _setCookie('ednao_url', url);
+      var isOnContextPage = new RegExp('^http(s)?:\/\/.*?' + escapeRegExp(contextPath));
+      // We don't save if url is the context page. It's the default and if we save the context page will not reload correctly.
+      if(!isOnContextPage.test(url)) {
+        _setCookie('ednao_url', url);
+      }
     }
 
     function _error(message) {
       console.log('Error: '+ message);
       alert('Une erreur est survenue dans le module d’aide.');
     }
-    _init();
+
+    function escapeRegExp(str) {
+      return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    }
+
+    document.onreadystatechange = function() {
+      if (document.readyState=="complete") {
+        _init(true);
+      }
+    };
 
     // Expose methods
     var exports = {};
