@@ -30,13 +30,14 @@ class TokenManager
      */
     public function getTokenDecrypt($str)
     {
-        $token = Token::unserialize($this->ednaoCrypt->decrypt($str));
+        // Old method
+        $token = $this->ednaoCrypt->decrypt(urldecode($str));
 
         if (!$token) {
-            // Compatibility with old encoding of the token
-            $token = Token::unserialize($this->ednaoCrypt->decrypt(urldecode($str)));
+            // New method
+            $token = $this->ednaoCrypt->decrypt($str);
         }
 
-        return Token::unserialize($this->ednaoCrypt->decrypt($str));
+        return Token::unserialize($token);
     }
 }

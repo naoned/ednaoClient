@@ -87,16 +87,15 @@ class EdnaoCryptography
      */
     public function decrypt($str)
     {
-        $base64Token = base64_decode(substr($str, 0, self::RANDOM_CHAR_POSITION) . substr($str, self::RANDOM_CHAR_POSITION + 1));
+        // Compatibility for old encoding method
+        $this->loadPrivateKey();
+        $token = $this->rsa->decrypt($str);
 
-        if (!$base64Token) {
-            // Compatibility for old encoding method
-            $this->loadPrivateKey();
-
-            return $this->rsa->decrypt($str);
+        if ($token) {
+            return $token;
+        } else {
+            return base64_decode(substr($str, 0, self::RANDOM_CHAR_POSITION) . substr($str, self::RANDOM_CHAR_POSITION + 1));
         }
-
-        return $base64Token;
     }
 
     /**
