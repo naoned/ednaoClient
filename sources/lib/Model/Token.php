@@ -92,23 +92,31 @@ class Token
         $s = [
             'socle'   => $this->socle,
             'product' => $this->product,
-            'rights'  => $this->rights
+            'rights'  => $this->rights,
         ];
-        return serialize($s);
+
+        return json_encode($s);
     }
 
     /**
      * Unserialize string to hydrate and return an instance of Token
      *
-     * @param $str
+     * @param  String $str
+     * @return Token       Token object
      */
     public static function unserialize($str)
     {
-        $t = unserialize($str);
+        $t = json_decode($str, true);
+
+        if (!$t) {
+            // Compatibility for old serialize versions
+            $t = unserialize($str);
+        }
 
         if (!isset($t['socle']) || !isset($t['product']) || !isset($t['rights'])) {
             throw new \Exception('Unserialized string does not refer to a valid token');
         }
+
         return new Token($t['socle'], $t['product'], $t['rights']);
     }
 }

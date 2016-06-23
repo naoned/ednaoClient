@@ -20,14 +20,23 @@ class TokenManager
 
     public function getTokenCrypt(Token $token)
     {
-        // Requires "AllowEncodedSlashes On" in apache virtualhost.
-        // Double encoded because some utf8 characters can make Apache crash.
-        // Apache automatically decodes the first encode and then still sees an encoded string.
-        return rawurlencode(rawurlencode($this->ednaoCrypt->crypt($token->serialize())));
+        return rawurlencode($this->ednaoCrypt->crypt($token->serialize()));
     }
 
+    /**
+     * Get decrypted token
+     * @param  string $str Encoded token
+     * @return Array       Token data array
+     */
     public function getTokenDecrypt($str)
     {
-        return Token::unserialize($this->ednaoCrypt->decrypt(rawurldecode($str)));
+        $token = Token::unserialize($this->ednaoCrypt->decrypt($str));
+
+        if (!$token) {
+            // Compatibility with old encoding of the token
+            $token = Token::unserialize($this->ednaoCrypt->decrypt(urldecode($str)));
+        }
+
+        return Token::unserialize($this->ednaoCrypt->decrypt($str));
     }
 }
