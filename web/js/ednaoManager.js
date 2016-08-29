@@ -36,12 +36,12 @@
         _error('Help context path is not defined');
       }
 
-      var x = _getCookie('ednao_x');
+      var x = localStorage.getItem('ednao_x');
       if (x) { iframe.style.left = x + 'px'; }
-      var y = _getCookie('ednao_y');
+      var y = localStorage.getItem('ednao_y');
       if (y) { iframe.style.top = y + 'px'; }
       isInit = true;
-      if (_getCookie('ednao_visible')) {
+      if (localStorage.getItem('ednao_visible')) {
         show();
       }
       window.addEventListener('message', _onmessage, true);
@@ -56,7 +56,7 @@
 
     function show(url) {
       _init();
-      _setCookie('ednao_visible', true);
+      localStorage.setItem('ednao_visible', true);
       _setIframeSrc(url)
       iframe.addEventListener("load", function() {
         _sendPositionToIframe();
@@ -66,7 +66,7 @@
 
     function _setIframeSrc(url) {
       if (!url) {
-        url = _getCookie('ednao_url');
+        url = localStorage.getItem('ednao_url');
       }
       if (!url || url === 'undefined') {
         var loginPath = iframe.getAttribute('data-login-path');
@@ -83,8 +83,8 @@
       iframe.contentWindow.postMessage({
         'type': 'resetScroll',
       }, '*');
-      _unsetCookie('ednao_visible');
-      _unsetCookie('ednao_url');
+      localStorage.removeItem('ednao_visible');
+      localStorage.removeItem('ednao_url');
       iframe.style.display = 'none';
     }
 
@@ -94,7 +94,7 @@
     }
 
     function reset() {
-      _unsetCookie('ednao_url');
+      localStorage.removeItem('ednao_url');
       _setIframeSrc();
     }
 
@@ -103,8 +103,8 @@
       iframe.style.height = '600px';
       iframe.style.left = curPos.x + 'px';
       iframe.style.top = curPos.y + 'px';
-      _setCookie('ednao_x', curPos.x);
-      _setCookie('ednao_y', curPos.y);
+      localStorage.setItem('ednao_x', curPos.x);
+      localStorage.setItem('ednao_y', curPos.y);
 
       //  refocus when popup is out of screen
       if(curPos.x < -200){
@@ -139,31 +139,6 @@
       }
     }
 
-    function _unsetCookie(cname, exMin) {
-      _setCookie(cname, '', exMin)
-    }
-
-    function _setCookie(cname, cvalue, exMin) {
-      var d = new Date();
-      if (exMin === undefined) {
-        exMin = 60;
-      }
-      d.setTime(d.getTime() + (exMin*60*1000));
-      var expires = "expires="+d.toUTCString();
-      document.cookie = cname + "=" + cvalue + "; " + expires;
-    }
-
-    function _getCookie(cname) {
-      var name = cname + "=";
-      var ca = document.cookie.split(';');
-      for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-      }
-      return "";
-    }
-
     function _getOffset(el) {
       var _x = 0;
       var _y = 0;
@@ -179,7 +154,7 @@
       var isOnContextPage = new RegExp('^http(s)?:\/\/.*?' + escapeRegExp(contextPath));
       // We don't save if url is the context page. It's the default and if we save the context page will not reload correctly.
       if(!isOnContextPage.test(url)) {
-        _setCookie('ednao_url', url);
+        localStorage.setItem('ednao_url', url);
       }
     }
 
