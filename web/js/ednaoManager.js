@@ -17,6 +17,9 @@
     var isInit = false;
     var currentPos = {'x' : 0, 'y' : 0};
     var contextPath;
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+                   navigator.userAgent && !navigator.userAgent.match('CriOS');
 
     function _init() {
       if (isInit) {
@@ -55,28 +58,45 @@
     }
 
     function show(url) {
-      _init();
-      localStorage.setItem('ednao_visible', true);
-      _setIframeSrc(url)
-      iframe.addEventListener("load", function() {
-        _sendPositionToIframe();
-        iframe.style.display = 'block';
-      });
+      if (isIE || isSafari) {
+        var win = window.open(getURL(url), '_blank');
+        if (win) {
+          //Browser has allowed it to be opened
+          win.focus();
+        } else {
+          //Browser has blocked it
+          console.log('Help window blocked by browser.');
+        }
+      } else {
+        _init();
+        localStorage.setItem('ednao_visible', true);
+        _setIframeSrc(url)
+        iframe.addEventListener("load", function() {
+          _sendPositionToIframe();
+          iframe.style.display = 'block';
+        });
+      }
     }
 
     function _setIframeSrc(url) {
+      iframe.src = getURL(url);
+    }
+
+    function getURL(url) {
       if (!url) {
         url = localStorage.getItem('ednao_url');
       }
-      if (!url || url === 'undefined') {
+
+      if (!url || typeof url === 'undefined') {
         var loginPath = iframe.getAttribute('data-login-path');
-        if (loginPath === undefined)   {
+        if (typeof loginPath === 'undefined')   {
           _error('Help login path is not defined');
           return;
         }
         url = baseUrl + loginPath;
       }
-      iframe.src = url;
+
+      return url;
     }
 
     function hide() {
