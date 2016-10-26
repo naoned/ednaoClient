@@ -31,8 +31,7 @@
                     <option value="heritage" <?php if ($product == 'heritage') : ?> selected<?php endif; ?> >heritage (iNao)</option>
                     <option value="musee" <?php if ($product == 'musee') : ?> selected<?php endif; ?> >musee (iNao)</option>
                     <option value="axecio" <?php if ($product == 'axecio') : ?> selected<?php endif; ?> >axecio (iNao)</option>
-                    <option value="seisan_public" <?php if ($product == 'seisan_public') : ?> selected<?php endif; ?> >seisan_public (iNao)</option>
-                    <option value="seisan_privee" <?php if ($product == 'seisan_privee') : ?> selected<?php endif; ?> >seisan_privee (iNao)</option>
+                    <option value="seisan" <?php if ($product == 'seisan') : ?> selected<?php endif; ?> >seisan (iNao)</option>
                     <option value="portail_valorisation" <?php if ($product == 'portail_valorisation') : ?> selected<?php endif; ?> >portail_valorisation (vaNao)</option>
                     <option value="sgm" <?php if ($product == 'sgm') : ?> selected<?php endif; ?> >sgm (upNao)</option>
                 </select>
