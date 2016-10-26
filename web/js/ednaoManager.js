@@ -57,6 +57,22 @@
       }, '*');
     }
 
+    function getIframe() {
+      if (typeof iframe === 'undefined' || iframe === null) {
+        iframe = document.getElementById('ednao');
+      }
+
+      return iframe;
+    }
+
+    function getBaseUrl() {
+      if (typeof baseUrl === 'undefined') {
+        baseUrl = getIframe().getAttribute('data-base-url');
+      }
+
+      return baseUrl;
+    }
+
     function show(url) {
       if (isIE || isSafari) {
         var win = window.open(getURL(url), '_blank');
@@ -88,12 +104,12 @@
       }
 
       if (!url || typeof url === 'undefined') {
-        var loginPath = iframe.getAttribute('data-login-path');
+        var loginPath = getIframe().getAttribute('data-login-path');
         if (typeof loginPath === 'undefined')   {
           _error('Help login path is not defined');
           return;
         }
-        url = baseUrl + loginPath;
+        url = getBaseUrl() + loginPath;
       }
 
       return url;
@@ -110,7 +126,7 @@
 
     // Change page for help in
     function goToContext(context) {
-      show(baseUrl+contextPath+context);
+      show(getBaseUrl()+contextPath+context);
     }
 
     function reset() {
@@ -206,5 +222,3 @@
   window.ednaoManager = ednaoManager;
   return ednaoManager;
 })(this);
-
-
