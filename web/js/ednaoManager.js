@@ -21,29 +21,41 @@
     var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
                    navigator.userAgent && !navigator.userAgent.match('CriOS');
 
-    function _init() {
-      if (isInit) {
-        return;
-      }
-      iframe = document.getElementById('ednao');
-      if (typeof iframe === 'undefined' || iframe === null) {
-        return;
-      }
-      contextPath = iframe.getAttribute('data-context-path');
-      baseUrl = iframe.getAttribute('data-base-url');
-      if (typeof baseUrl === 'undefined')   {
-        _error('Help based url is not defined');
-        return;
-      }
-      if (typeof contextPath === 'undefined') {
-        _error('Help context path is not defined');
-      }
+    function _initVars() {
+        if (isInit) {
+            return true;
+        }
+        iframe = document.getElementById('ednao');
+        if (typeof iframe === 'undefined' || iframe === null) {
+            return false;
+        }
+        contextPath = iframe.getAttribute('data-context-path');
+        baseUrl = iframe.getAttribute('data-base-url');
+        if (typeof baseUrl === 'undefined')   {
+            _error('Help based url is not defined');
+            return false;
+        }
+        if (typeof contextPath === 'undefined') {
+            _error('Help context path is not defined');
+        }
+        isInit = true;
 
+        return true;
+    }
+
+    function _init() {
+        if (isInit) {
+            return;
+          }
+        var res = _initVars();
+        if (!res) {
+            return;
+        }
       var x = localStorage.getItem('ednao_x');
       if (x) { iframe.style.left = x + 'px'; }
       var y = localStorage.getItem('ednao_y');
       if (y) { iframe.style.top = y + 'px'; }
-      isInit = true;
+
       if (localStorage.getItem('ednao_visible')) {
         show();
       }
@@ -57,24 +69,10 @@
       }, '*');
     }
 
-    function getIframe() {
-      if (typeof iframe === 'undefined' || iframe === null) {
-        iframe = document.getElementById('ednao');
-      }
-
-      return iframe;
-    }
-
-    function getBaseUrl() {
-      if (typeof baseUrl === 'undefined') {
-        baseUrl = getIframe().getAttribute('data-base-url');
-      }
-
-      return baseUrl;
-    }
 
     function show(url) {
       if (isIE || isSafari) {
+        _initVars();
         var win = window.open(getURL(url), '_blank');
         if (win) {
           //Browser has allowed it to be opened
@@ -104,12 +102,12 @@
       }
 
       if (!url || typeof url === 'undefined') {
-        var loginPath = getIframe().getAttribute('data-login-path');
+        var loginPath = iframe.getAttribute('data-login-path');
         if (typeof loginPath === 'undefined')   {
           _error('Help login path is not defined');
           return;
         }
-        url = getBaseUrl() + loginPath;
+        url = baseUrl + loginPath;
       }
 
       return url;
@@ -126,7 +124,14 @@
 
     // Change page for help in
     function goToContext(context) {
-      show(getBaseUrl()+contextPath+context);
+        var url = baseUrl;
+        if (typeof contextPath !== 'undefined') {
+            url += contextPath;
+            if (typeof context !== 'undefined') {
+                url += context;
+            }
+        }
+        show(url);
     }
 
     function reset() {
@@ -205,7 +210,9 @@
 
     document.onreadystatechange = function() {
       if (document.readyState=="complete") {
-        _init(true);
+        if (!isIE && !isSafari) {
+            _init(true);
+        }
       }
     };
 
