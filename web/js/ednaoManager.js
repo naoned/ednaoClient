@@ -124,6 +124,9 @@
 
     // Change page for help in
     function goToContext(context) {
+        if (isIE || isSafari) {
+            return show();
+        }
         var url = baseUrl;
         if (typeof contextPath !== 'undefined') {
             url += contextPath;
